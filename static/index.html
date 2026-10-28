@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Four Thousand Weeks</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="/static/style.css">
+<script src="/static/app.js" defer></script>
+</head>
+<body>
+<!-- Grain layer: the only "image" on the page. -->
+<svg class="grain" aria-hidden="true" focusable="false">
+  <filter id="grain-filter"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" stitchTiles="stitch"/></filter>
+  <rect width="100%" height="100%" filter="url(#grain-filter)"/>
+</svg>
+
+<!-- Icons: 24 viewBox, 1.75 stroke, round caps. Used as <use href="#icon-name">. -->
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <symbol id="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="icon-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 15l6-6 6 6"/></symbol>
+  <symbol id="icon-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="icon-bucket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4.5" width="16" height="3.5" rx="1.75"/><rect x="4" y="10.25" width="16" height="3.5" rx="1.75"/><rect x="4" y="16" width="16" height="3.5" rx="1.75"/></symbol>
+  <symbol id="icon-more" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></symbol>
+  <symbol id="icon-grip" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></symbol>
+  <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+  <symbol id="icon-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></symbol>
+  <symbol id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+</svg>
+<template id="icon-template"><svg class="icon" aria-hidden="true" focusable="false"><use href=""></use></svg></template>
+
+<header class="top">
+  <a class="wordmark" href="#/">Four Thousand <span class="wordmark-accent">Weeks</span></a>
+  <nav class="nav" aria-label="Pages">
+    <a href="#/">Focus</a>
+    <a href="#/open">Open</a>
+    <a href="#/neglect">Neglect</a>
+    <a href="#/weeks">Weeks</a>
+    <a href="#/review">Review</a>
+    <a href="#/report">Report</a>
+    <a href="#/settings">Settings</a>
+    <a href="#/why">Why</a>
+  </nav>
+  <button type="button" class="theme-toggle" id="theme-toggle" data-theme="system" aria-label="Theme: system. Change theme"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-auto"></use></svg></button>
+</header>
+
+<p id="message" class="message" role="status" aria-live="polite" hidden></p>
+
+<main>
+  <section id="view-focus" class="view">
+    <a class="lifeline" id="lifeline" href="#/weeks">
+      <span class="lifeline-lived" id="lifeline-lived" hidden>
+        <span class="lifeline-numeral" id="lifeline-numeral"></span>
+        <span class="lifeline-caption">weeks lived</span>
+      </span>
+      <span class="lifeline-ask" id="lifeline-ask">Add your birth date to light the ribbon</span>
+      <span class="ribbon" id="ribbon" aria-hidden="true"></span>
+      <span class="lifeline-remaining" id="lifeline-remaining" hidden>
+        <span class="lifeline-left-line" id="lifeline-left-line"></span>
+        <span class="lifeline-caption" id="lifeline-left-caption">if you get the average</span>
+      </span>
+    </a>
+
+    <section class="focus-band" aria-labelledby="h-focus">
+      <div class="band-head">
+        <h2 id="h-focus">Focus</h2>
+        <span class="count" id="count-focus"></span>
+      </div>
+      <p id="serialize" class="note" hidden></p>
+      <ul class="tasks focus-list" data-state="focus" id="list-focus"></ul>
+    </section>
+
+    <section class="closed-band" aria-labelledby="h-closed">
+      <div class="band-head">
+        <h2 id="h-closed">Closed</h2>
+        <span class="count" id="count-closed"></span>
+      </div>
+      <ul class="tasks closed-list" data-state="closed" id="list-closed"></ul>
+    </section>
+
+    <section class="ledger" aria-labelledby="h-done">
+      <h2 id="h-done">Done today</h2>
+      <p class="empty" id="empty-done" hidden>Nothing logged today.</p>
+      <ul class="ledger-list" id="today-done"></ul>
+      <form id="quick-log" class="quick-log" autocomplete="off">
+        <label class="sr-only" for="log-title">Log something done</label>
+        <input id="log-title" placeholder="Log something done" maxlength="500">
+        <label class="check"><input type="checkbox" id="log-own-sake"> for its own sake</label>
+        <button type="submit">Log</button>
+      </form>
+      <p class="aside">Stop while you still want to go on.</p>
+    </section>
+  </section>
+
+  <section id="view-open" class="view" hidden>
+    <div class="band-head">
+      <h2 id="h-open">Open</h2>
+      <span class="count" id="count-open"></span>
+    </div>
+    <p class="hint">Everything you might do. When it is full, something has to give.</p>
+    <p class="empty" id="empty-open" hidden>Nothing waiting. That is allowed.</p>
+    <ul class="tasks open-list" data-state="open" id="list-open"></ul>
+  </section>
+
+  <section id="view-neglect" class="view reading" hidden>
+    <h2>Neglect</h2>
+    <p class="hint">Things you decided not to do well, or at all, for now. A choice, not a failure.</p>
+    <h3 id="h-aging">Aging in Open</h3>
+    <p class="hint">In Open for <span id="stale-days">14</span> days or more. Renew it, move it, or retire it.</p>
+    <p class="empty" id="empty-aging" hidden>Nothing aging.</p>
+    <ul class="tasks aging-list" id="list-aging" aria-labelledby="h-aging"></ul>
+    <h3 id="h-set-aside">Set aside</h3>
+    <p class="empty" id="empty-neglect" hidden>The shelf is empty.</p>
+    <ul class="tasks neglect-list" data-state="neglect" id="list-neglect" aria-labelledby="h-set-aside"></ul>
+  </section>
+
+  <section id="view-weeks" class="view weeks-page" hidden>
+    <h2 class="sr-only">Your weeks</h2>
+    <div id="dots" class="dots" role="img" aria-labelledby="dots-caption"></div>
+    <p id="dots-caption" class="dots-caption"></p>
+    <p id="weeks-ask" class="empty" hidden>Add your birth date in <a href="#/settings">Settings</a> to see your weeks.</p>
+  </section>
+
+  <section id="view-review" class="view reading" hidden>
+    <h2>Weekly review <span class="quiet" id="review-week"></span></h2>
+    <p id="review-question" class="question"></p>
+    <h3>Done</h3>
+    <ul id="review-done" class="plain"></ul>
+    <h3>Let go</h3>
+    <ul id="review-let-go" class="plain"></ul>
+    <h3>Neglected</h3>
+    <ul id="review-neglect" class="plain"></ul>
+    <form id="review-form" class="review-form">
+      <label for="review-answer">Your answer, for you only</label>
+      <textarea id="review-answer" rows="6" maxlength="10000"></textarea>
+      <button type="submit">Save</button>
+    </form>
+    <h3>Past answers</h3>
+    <ul id="review-past" class="plain past"></ul>
+  </section>
+
+  <section id="view-report" class="view reading" hidden>
+    <h2>Year report</h2>
+    <p class="field">
+      <label for="report-year">Year</label>
+      <input id="report-year" type="number" min="1900" max="9999" step="1">
+    </p>
+    <ul class="plain links">
+      <li><a id="report-html" href="#" target="_blank" rel="noopener">Open the report</a> <span class="quiet">one page, save it anywhere</span></li>
+      <li><a id="report-json" href="#" target="_blank" rel="noopener">Report as JSON</a></li>
+    </ul>
+    <h3>Your data</h3>
+    <ul class="plain links">
+      <li><a href="/api/export.json">Export everything (JSON)</a></li>
+      <li><a href="/api/export/done.csv">Done list (CSV)</a></li>
+    </ul>
+  </section>
+
+  <section id="view-settings" class="view reading" hidden>
+    <h2>Settings</h2>
+    <form id="settings-form" class="settings-form">
+      <p class="field">
+        <label for="birth-date">Birth date, optional</label>
+        <input id="birth-date" type="date">
+        <button type="button" id="birth-clear">Clear</button>
+      </p>
+      <p class="field">
+        <label for="open-cap">Open holds</label>
+        <input id="open-cap" type="number" min="5" max="200" step="1" required>
+      </p>
+      <button type="submit">Save</button>
+    </form>
+    <p class="hint">With a birth date, the lifeline on the Focus page shows the weeks you have lived out of about 4,000. It stays in the database on this machine.</p>
+    <p class="hint">Focus holds 3 and Closed holds 10. These are fixed on purpose. Open holds 5 to 200.</p>
+  </section>
+
+  <section id="view-why" class="view reading" hidden>
+    <h2>Why it works this way</h2>
+    <p class="lede">An average life is about four thousand weeks. You will never get through everything, so this app helps you choose a few things and let the rest go. It follows Oliver Burkeman's book <cite>Four Thousand Weeks</cite>.</p>
+    <table class="why">
+      <thead><tr><th>Idea from the book</th><th>What the app does</th></tr></thead>
+      <tbody>
+        <tr><td>Keep an open list and a closed list with a fixed size.</td><td>Open holds 20 by default. Closed holds ten. When a list is full, its last item moves down a list.</td></tr>
+        <tr><td>Limit work in progress to about three.</td><td>Focus holds three. To add a fourth, you choose which one steps aside.</td></tr>
+        <tr><td>Pay yourself first.</td><td>One Focus item can be marked first. It sits alone at the top.</td></tr>
+        <tr><td>Decide in advance what to fail at. Resist middling priorities.</td><td>The Neglect page. Each item set aside carries a one-line reason. A choice, not a failure.</td></tr>
+        <tr><td>The joy of missing out.</td><td>Letting go is a real outcome, dated and in the report. Items in Open for two weeks show up on the Neglect page, where you can retire them.</td></tr>
+        <tr><td>Keep a done list.</td><td>Every finish is kept with its date. Done today sits at the bottom of the Focus page. Nothing is ever deleted.</td></tr>
+        <tr><td>One big project at a time.</td><td>An optional project tag. A quiet note appears when Focus spans more than one project.</td></tr>
+        <tr><td>Rest that does not have to earn its keep.</td><td>Log something done "for its own sake", with no task behind it. Counted apart, never scored.</td></tr>
+        <tr><td>Small steady amounts. Stay on the bus.</td><td>No streaks. A reminder to stop while you still want to go on.</td></tr>
+        <tr><td>Five questions worth asking.</td><td>The weekly review shows one each week, with what you did, let go and neglected. No reminders.</td></tr>
+        <tr><td>About four thousand weeks.</td><td>Optional: enter a birth date and the lifeline shows your weeks. Blank by default.</td></tr>
+        <tr><td>Efficiency and speed make things worse.</td><td>No timers, no estimates, no due dates.</td></tr>
+        <tr><td>Boring, single-purpose tools.</td><td>No accounts, no network, no notifications, no scores. Your data is one file on your machine.</td></tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
+<button type="button" class="fab" id="fab" aria-label="New item (n)" title="New item (n)"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg></button>
+
+<dialog class="create-dialog" id="create-dialog" aria-labelledby="create-heading">
+  <form id="create-form" class="create-form" autocomplete="off" novalidate>
+    <h2 id="create-heading" class="sr-only">New item</h2>
+    <label class="sr-only" for="create-title">Title</label>
+    <input id="create-title" class="create-title" placeholder="What is it?" maxlength="500" autofocus>
+    <label class="field-label" for="create-project">Project</label>
+    <input id="create-project" class="create-project" placeholder="optional" maxlength="100">
+    <label class="field-label" for="create-notes">Notes</label>
+    <textarea id="create-notes" class="create-notes" rows="1" placeholder="optional" maxlength="10000"></textarea>
+    <fieldset class="segmented" id="create-bucket">
+      <legend class="field-label">Bucket</legend>
+      <label class="seg" data-bucket="focus"><input type="radio" name="bucket" value="focus"><span class="seg-name">Focus</span> <span class="seg-count" id="seg-count-focus"></span></label>
+      <label class="seg" data-bucket="closed"><input type="radio" name="bucket" value="closed"><span class="seg-name">Closed</span> <span class="seg-count" id="seg-count-closed"></span></label>
+      <label class="seg" data-bucket="open"><input type="radio" name="bucket" value="open" checked><span class="seg-name">Open</span> <span class="seg-count" id="seg-count-open"></span></label>
+    </fieldset>
+    <fieldset class="create-step bump-picker" id="create-bump" hidden>
+      <legend>Focus is full. Which one steps aside?</legend>
+      <div class="bump-options" id="create-bump-options"></div>
+      <p class="note">It moves to the top of Closed; if Closed is full, its last item moves to the top of Open.</p>
+    </fieldset>
+    <div class="create-step position-step" id="create-position" hidden>
+      <label class="field-label" for="create-position-input">Position in Open</label>
+      <input id="create-position-input" type="number" min="1" step="1" value="1">
+      <p class="note">The last item in Open moves to the Neglect page.</p>
+    </div>
+    <p class="note create-step" id="create-closed-note" hidden>Closed is full: its last item will move to the top of Open.</p>
+    <p class="dialog-error" id="create-error" role="alert" hidden></p>
+    <div class="dialog-actions">
+      <button type="button" id="create-cancel">Cancel</button>
+      <button type="submit" id="create-submit">Add</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="bucket-popover" id="bucket-popover" role="dialog" aria-label="Choose a list" hidden></div>
+<div class="more-menu" id="more-menu" role="menu" aria-label="More actions" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
