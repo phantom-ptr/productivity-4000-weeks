@@ -156,3 +156,7 @@ data/               your database (created on first run, not in git)
 The ideas are Oliver Burkeman's, from *Four Thousand Weeks: Time Management for
 Mortals* (2021). This app paraphrases them and is not affiliated with the
 author or publisher. If it is useful to you, read the book.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

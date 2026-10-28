@@ -18,7 +18,6 @@ Owner rulings, verbatim, in the order given. Chat is the ruling; this file recor
 
 ## Parked for the owner (morning of 2026-10-28)
 
-- License for the public repo (none written yet).
 - Open cap default of 20: confirm or change (Settings, 5 to 200).
 - Aging counts from creation (or the last Renew), not from the moment an item entered Open. An old item demoted from Closed shows as aging at once. Confirm or change.
 - The let-go and set-aside reason prompts are plain browser prompts; a styled dialog is a possible follow-up.
@@ -68,3 +67,5 @@ Manager calls under these rulings (small, reported):
   (any placement into a full Closed list honours the given position; later items shift down; the last Closed item moves to the top of Open)
 - "Deploy an opus agent to check every line of code for any PII/secrets/confidential info, if none is found push to main."
   (commit and push to main authorized, conditional on a clean audit)
+
+- License: "MIT" (asked which license, given "I don't mind anyone using this for any purpose"). LICENSE file added, copyright holder is the GitHub handle.
